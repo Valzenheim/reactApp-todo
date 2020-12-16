@@ -20,40 +20,31 @@
     outline: none;
     border: none;
     width: 350px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid lightgray;
     margin-top: 15px;
 }
 
 .active{
-
-    height: 20px;
-    border-bottom: 1px solid black;
+    height: 30px;
+    border-bottom: 1px solid lightgray;
     display: block;
-    vertical-align: middle;
 }
 
 .completed{
-    height: 20px;
+    height: 30px;
+    border-bottom: 1px solid lightgray;
+}
 
+.completed .textArea{
     text-decoration: line-through;
-    border-bottom: 1px solid black;
-    vertical-align: middle;
 }
 
 .App .remSpan{
-    display: none;
     float: right;
-    color: red;
-    cursor: pointer;
-
-}
-
-.App .active:hover .remSpan{
-    display: inline-block;
-}
-
-.App .completed:hover .remSpan{
-    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin: 5px  10px auto auto;
+    stroke-opacity: 0.25;
 }
 
 button{
@@ -63,6 +54,60 @@ button{
 }
 
 .activeBtn{
-    border: 1px solid orangered;
-    border-radius: 2px
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    margin: 5px 5px auto 5px;
 }
+
+.sleepBtn{
+    margin: 5px 5px auto 5px;
+}
+
+.textArea{
+    display: inline-block;
+    margin: 5px auto auto 10px;
+
+}
+
+.checkbox{
+    opacity: 0;
+}
+
+.checkContainer{
+    color: lightgreen;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border: 1px solid lightgray;
+    border-radius: 100%;
+    margin-left: 10px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.complete img{
+    display: block;
+}
+
+.active img{
+    display: none;
+}
+
+#allComp{
+    opacity:0;
+}
+
+.footer{
+    height: 30px;
+   }
+
+.selectAll{
+    display: inline-block;
+    margin: 5px 10px auto 10px;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.checkbox input[type="checkbox"] {
+    opacity: 0;
+}
+

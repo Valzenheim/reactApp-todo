@@ -13,7 +13,8 @@ class App extends React.Component {
             tasks: [],
             filter: 'all',
             filtered: [],
-            activeTasks: 0
+            activeTasks: 0,
+            allSelector: false
 
         }
         this.changeHandler = this.changeHandler.bind(this);
@@ -24,6 +25,7 @@ class App extends React.Component {
         this.setFilter = this.setFilter.bind(this);
         this.filterItems = this.filterItems.bind(this);
         this.selectAll = this.selectAll.bind(this);
+        this.propsSelector = this.propsSelector.bind(this);
     }
 
     changeHandler(event) {
@@ -51,10 +53,16 @@ class App extends React.Component {
         this.setState({tasks: oldTasks}, this.filterItems);
     }
 
-    selectAll(event) {
+    propsSelector(){
+        let select = !this.state.allSelector
+        this.setState({allSelector: select})
+        this.selectAll()
+    }
+
+    selectAll() {
         let oldTasks = this.state.tasks;
         oldTasks.forEach((item) =>
-            item.checks = event.target.checked
+            item.checks = this.state.allSelector
         )
         this.setState({tasks: oldTasks}, this.filterItems);
     }
@@ -67,7 +75,6 @@ class App extends React.Component {
     doneRemover() {
         let oldTask = this.state.tasks;
         const newTask = oldTask.filter(x => x.checks !== true);
-        document.getElementById('allComp').checked = false;
         this.setState({tasks: newTask}, this.filterItems);
     }
 
@@ -129,7 +136,7 @@ class App extends React.Component {
                     <Footer
                         setFilter={this.setFilter}
                         filterItems={this.filterItems}
-                        selectAll={this.selectAll}
+                        selector={this.propsSelector}
                         doneRemover={this.doneRemover}
                         filter={this.state.filter}
                         activeTasks={this.state.activeTasks}

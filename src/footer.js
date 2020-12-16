@@ -5,17 +5,16 @@ class Footer extends React.Component {
     render() {
         return (
             <>
-                <input
-                    type="checkbox"
-                    id="allComp"
-                    onChange={this.props.selectAll}
-                />
-                <span>
+
+                <span
+                    className="selectAll"
+                    onClick={this.props.selector}
+                >
                     {this.props.activeTasks} tasks left
                 </span>
 
                 <button
-                    className={this.props.filter === 'all' ? 'activeBtn' : ''}
+                    className={this.props.filter === 'all' ? 'activeBtn' : 'sleepBtn'}
                     data-value='all'
                     onClick={this.props.setFilter}
 
@@ -24,7 +23,7 @@ class Footer extends React.Component {
                 </button>
 
                 <button
-                    className={this.props.filter === 'active' ? 'activeBtn' : ''}
+                    className={this.props.filter === 'active' ? 'activeBtn' : 'sleepBtn'}
                     data-value='active'
                     onClick={this.props.setFilter}
                 >
@@ -32,7 +31,7 @@ class Footer extends React.Component {
                 </button>
 
                 <button
-                    className={this.props.filter === 'done' ? 'activeBtn' : ''}
+                    className={this.props.filter === 'done' ? 'activeBtn' : 'sleepBtn'}
                     data-value='done'
                     onClick={this.props.setFilter}
                 >
@@ -40,6 +39,7 @@ class Footer extends React.Component {
                 </button>
 
                 <button
+                    className="removeAll"
                     onClick={this.props.doneRemover}
                 >
                     remove completed

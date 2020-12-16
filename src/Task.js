@@ -1,4 +1,6 @@
 import React from 'react';
+import trash from './trash-alt-solid.svg';
+import check from './check-solid.svg'
 
 class Task extends React.Component {
     constructor(props) {
@@ -21,11 +23,16 @@ class Task extends React.Component {
                 className={this.props.item.checks ? 'completed' : 'active'}
                 id={this.props.item.id}
             >
-                <input
-                    type="checkbox"
-                    checked={this.props.item.checks}
-                    onChange={this.checkHandler}
-                />
+                <label className="checkContainer">
+                    <img src={check} alt={check} />
+                    <input
+                        className="checkbox"
+                        type="checkbox"
+                        checked={this.props.item.checks}
+                        onChange={this.checkHandler}
+                    />
+
+                </label>
                 <span
                     className="textArea">
                     {this.props.item.taskValue}
@@ -34,7 +41,7 @@ class Task extends React.Component {
                 <span
                     className="remSpan"
                     onClick={this.taskRemover}>
-                    ❌
+                    <img  src={trash} alt={trash}/>
                 </span>
             </div>
         )
