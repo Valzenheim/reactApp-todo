@@ -1,0 +1,39 @@
+
+.body{
+    width: 100%;
+}
+
+.App{
+    width: 400px;
+    margin: 100px auto;
+    box-shadow: 0 0 10px black;
+}
+
+.formInput{
+    outline: none;
+    border: none;
+}
+
+.active{
+
+}
+
+.completed{
+
+}
+
+.App .remSpan{
+    display: none;
+    float: right;
+    color: red;
+    cursor: pointer;
+
+}
+
+.App .active:hover .remSpan{
+    display: inline-block;
+}
+
+.App .completed:hover .remSpan{
+    display: inline-block;
+}
