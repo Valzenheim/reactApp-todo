@@ -3,23 +3,41 @@
     width: 100%;
 }
 
+
 .App{
-    width: 400px;
-    margin: 100px auto;
-    box-shadow: 0 0 10px black;
+    width: 375px;
+    margin: 100px auto auto auto;
+    box-shadow: 0 0 50px gray;
+}
+
+.header{
+    height: 40px;
+    width: 375px;
+    text-align: center;
 }
 
 .formInput{
     outline: none;
     border: none;
+    width: 350px;
+    border-bottom: 1px solid black;
+    margin-top: 15px;
 }
 
 .active{
 
+    height: 20px;
+    border-bottom: 1px solid black;
+    display: block;
+    vertical-align: middle;
 }
 
 .completed{
+    height: 20px;
 
+    text-decoration: line-through;
+    border-bottom: 1px solid black;
+    vertical-align: middle;
 }
 
 .App .remSpan{
@@ -36,4 +54,15 @@
 
 .App .completed:hover .remSpan{
     display: inline-block;
+}
+
+button{
+    border:none;
+    outline: none;
+    background-color: white;
+}
+
+.activeBtn{
+    border: 1px solid orangered;
+    border-radius: 2px
 }

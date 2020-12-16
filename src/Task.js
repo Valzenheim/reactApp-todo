@@ -1,44 +1,44 @@
-import React from 'react'
+import React from 'react';
 
-class Task extends React.Component{
-    constructor(props){
+class Task extends React.Component {
+    constructor(props) {
         super(props);
-        this.state={
-            task: props.item
-        };
-        this.itemRemover = props.itemRemover;
-        this.checkHandle = props.checkHandle;
         this.taskRemover = this.taskRemover.bind(this);
         this.checkHandler = this.checkHandler.bind(this)
     }
 
-    taskRemover(){
-        this.itemRemover(this.state.task.id)
+    taskRemover() {
+        this.props.itemRemover(this.props.item.id);
     }
 
-    checkHandler(){
-        this.checkHandle(this.state.task.id)
+    checkHandler() {
+        this.props.checkHandle(this.props.item.id);
     }
 
-    render(){
-        return(
-            <div key={this.state.task.id}
-                 className={this.state.task.checks ? 'completed' : 'active'}
-                 id={this.state.task.id}>
-                <input type="checkbox"
-                       id={this.state.task.id}
-                       checked={this.state.task.checks}
-                       onChange={this.checkHandler}/>
-                <span className="textArea">
-                    {this.state.task.taskValue}
+    render() {
+        return (
+            <div
+                className={this.props.item.checks ? 'completed' : 'active'}
+                id={this.props.item.id}
+            >
+                <input
+                    type="checkbox"
+                    checked={this.props.item.checks}
+                    onChange={this.checkHandler}
+                />
+                <span
+                    className="textArea">
+                    {this.props.item.taskValue}
                 </span>
 
-                <span className="remSpan"
-                      onClick={this.taskRemover}>
+                <span
+                    className="remSpan"
+                    onClick={this.taskRemover}>
                     ❌
                 </span>
             </div>
         )
     }
 }
+
 export default Task;

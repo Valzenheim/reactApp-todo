@@ -1,38 +1,52 @@
 import React from 'react';
 
-class Footer extends React.Component{
-    constructor(props){
-        super(props)
-        this.state={
+class Footer extends React.Component {
 
-        }
-    }
-
-    render(){
-        return(
+    render() {
+        return (
             <>
-                <input type="checkbox" id="allComp" />
+                <input
+                    type="checkbox"
+                    id="allComp"
+                    onChange={this.props.selectAll}
+                />
                 <span>
-                        {}/{}tasks left
-                    </span>
+                    {this.props.activeTasks} tasks left
+                </span>
 
-                <button className={this.state.filter === 'all' ? 'activeBtn' : ''}
-                        data-value = 'all'
-                        >all</button>
+                <button
+                    className={this.props.filter === 'all' ? 'activeBtn' : ''}
+                    data-value='all'
+                    onClick={this.props.setFilter}
 
-                <button className={this.state.filter === 'active' ? 'activeBtn' : ''}
-                        data-value = 'active'
-                        >active</button>
+                >
+                    all
+                </button>
 
-                <button className={this.state.filter === 'done' ? 'activeBtn' : ''}
-                        data-value = 'done'
-                        >done</button>
+                <button
+                    className={this.props.filter === 'active' ? 'activeBtn' : ''}
+                    data-value='active'
+                    onClick={this.props.setFilter}
+                >
+                    active
+                </button>
 
-                <button >
+                <button
+                    className={this.props.filter === 'done' ? 'activeBtn' : ''}
+                    data-value='done'
+                    onClick={this.props.setFilter}
+                >
+                    done
+                </button>
+
+                <button
+                    onClick={this.props.doneRemover}
+                >
                     remove completed
                 </button>
             </>
         )
     }
 }
+
 export default Footer;
