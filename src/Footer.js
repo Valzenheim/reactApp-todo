@@ -1,7 +1,6 @@
 import React from 'react';
-import './reduxState';
-import './reduxActions';
-import './reduxReducer';
+import {connect} from "react-redux";
+import {changeFilter} from "./reduxActions";
 
 class Footer extends React.Component {
 
@@ -18,7 +17,7 @@ class Footer extends React.Component {
 
                 <button
                     className={this.props.filter === 'all' ? 'activeBtn' : 'sleepBtn'}
-                    onClick={()=>{this.props.setFilter('all')}}
+                    onClick={()=>this.props.setFilter('all')}
 
                 >
                     all
@@ -26,14 +25,14 @@ class Footer extends React.Component {
 
                 <button
                     className={this.props.filter === 'active' ? 'activeBtn' : 'sleepBtn'}
-                    onClick={()=>{this.props.setFilter('active')}}
+                    onClick={()=>this.props.setFilter('active')}
                 >
                     active
                 </button>
 
                 <button
                     className={this.props.filter === 'done' ? 'activeBtn' : 'sleepBtn'}
-                    onClick={()=>{this.props.setFilter('done')}}
+                    onClick={()=>this.props.setFilter('done')}
                 >
                     done
                 </button>
@@ -49,4 +48,13 @@ class Footer extends React.Component {
     }
 }
 
-export default Footer;
+const mapStateToProps = state => ({
+    filter: state.filter,
+    activeTasks: state.activeTasks
+});
+
+const mapDispatchToProps = dispatch => ({
+    setFilter: filter => dispatch(changeFilter(filter))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

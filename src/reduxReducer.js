@@ -1,6 +1,16 @@
-import {initialState, TASK, VALUE, FILTER} from './reduxState'
+import {TASK, VALUE, FILTER} from './reduxState'
 import {createStore} from 'redux'
 import uuid from 'react-uuid';
+
+const initialState = {
+    taskArray: [],
+    inValue:'',
+    filter: 'all',
+    filtered: [],
+    activeTasks: 0,
+    allSelector: false
+};
+
 
 export const rootReducer = (state = initialState, action) => {
     //

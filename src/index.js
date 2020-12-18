@@ -2,15 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {connect, Provider} from 'react-redux';
-import {mapStateToProps} from './reduxState';
-import {mapDispatchToProps} from './reduxActions'
+import {Provider} from 'react-redux';
 import {store} from './reduxReducer'
 
-const MainComponent = connect(mapStateToProps, mapDispatchToProps)(App)
 ReactDOM.render(
   <Provider store={store}>
-    <MainComponent />
+    <App />
   </Provider>,
   document.getElementById('root')
 );

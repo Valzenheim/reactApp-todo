@@ -1,17 +1,12 @@
 import React from 'react';
+import {connect} from "react-redux";
 import Task from './Task';
 import Footer from './Footer';
 import './style.css';
-import './reduxState';
 import './reduxActions';
-import './reduxReducer';
+import {addTask, addValue} from "./reduxActions";
 
 class App extends React.Component {
-
-
-
-
-
     // checkboxHandler(task) {
     //     let oldTasks = this.state.tasks;
     //     oldTasks.map((item) =>
@@ -96,13 +91,28 @@ class App extends React.Component {
                         />
                         )}
                 </div>
-                    <Footer
-                        filter={this.props.filter}
-                        //setFilter={this.props.setFilter()}
-                    />
+                    <Footer />
             </div>
         );
     }
 }
 
-export default App;
+export const mapStateToProps = (state) => {
+    return {
+        firstName: state.taskArray,
+        inValue: state.inValue,
+        filter: state.filter,
+        filtered: state.filtered,
+        activeTasks:  state.activeTasks,
+        allSelector: state.allSelector
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return ({
+        addVal: (text)=> dispatch(addValue(text)),
+        addText: () => dispatch(addTask()),
+    })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
