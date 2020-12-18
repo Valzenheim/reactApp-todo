@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {connect, Provider} from 'react-redux';
+import {mapStateToProps} from './reduxState';
+import {mapDispatchToProps} from './reduxActions'
+import {store} from './reduxReducer'
 
+const MainComponent = connect(mapStateToProps, mapDispatchToProps)(App)
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <MainComponent />
+  </Provider>,
   document.getElementById('root')
 );
 

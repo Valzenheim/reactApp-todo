@@ -84,11 +84,11 @@ button{
     vertical-align: middle;
     cursor: pointer;
 }
-.complete img{
+.complete .markIcon{
     display: block;
 }
 
-.active img{
+.active .markIcon{
     display: none;
 }
 
