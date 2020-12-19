@@ -61,6 +61,30 @@ class App extends React.Component {
     //     }
     // };
 
+    taskRender(){
+        let filter = this.props.filter;
+        let tasks=[]
+
+            if(filter==='all'){
+                tasks = this.props.taskArray
+                console.log(filter)
+                return tasks.map((item) =>  <Task item={item} key = {item.id} />)
+            }else if(filter === 'active'){
+                console.log(filter)
+                 tasks = this.props.taskArray.filter(x => x.checks !== true)
+                return tasks.map((item) =>  <Task item={item} key = {item.id} />)
+            }else if(filter === 'done'){
+                console.log(filter)
+                tasks = this.props.taskArray.filter(x => x.checks === true)
+                return tasks.map((item) =>  <Task item={item} key = {item.id} />)
+            }
+
+        }
+
+
+
+
+
     render() {
         return (
             <div className="App">
@@ -82,14 +106,7 @@ class App extends React.Component {
                     </form>
                 </div>
                 <div className='section'>
-                    {this.props.filtered.map((item) =>
-                        <Task
-                            item={item}
-                            key={item.id}
-                            //itemRemover={this.itemRemover}
-                            //checkHandle={this.checkboxHandler}
-                        />
-                        )}
+                    {this.taskRender()}
                 </div>
                     <Footer />
             </div>
@@ -99,7 +116,7 @@ class App extends React.Component {
 
 export const mapStateToProps = (state) => {
     return {
-        firstName: state.taskArray,
+        taskArray: state.taskArray,
         inValue: state.inValue,
         filter: state.filter,
         filtered: state.filtered,

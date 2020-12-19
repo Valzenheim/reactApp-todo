@@ -1,4 +1,4 @@
-import {TASK, VALUE, FILTER} from './reduxState';
+import {TASK, VALUE, FILTER, CLEAR, EACH} from './reduxState';
 
 export const addTask = () => {
     return {
@@ -17,5 +17,17 @@ export const changeFilter = (filter) => {
     return{
         type: FILTER,
         payload: filter
+    }
+}
+
+export const clear =()=>{
+    return{
+        type: CLEAR,
+    }
+}
+
+export const eachSelector = ()=>{
+    return{
+        type: EACH
     }
 }

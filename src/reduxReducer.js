@@ -1,4 +1,4 @@
-import {TASK, VALUE, FILTER} from './reduxState'
+import {TASK, VALUE, FILTER, CLEAR, EACH} from './reduxState'
 import {createStore} from 'redux'
 import uuid from 'react-uuid';
 
@@ -12,69 +12,65 @@ const initialState = {
 };
 
 
-export const rootReducer = (state = initialState, action) => {
-    //
-    // let filter = state.filter;
-    // let oldTask = state.taskArray
-    // let activeCount = oldTask.filter(x => x.checks !== true).length;
-    //
-    // if(filter === 'all') {
-    //     return {
-    //         ...state,
-    //         filtered: oldTask,
-    //         activeTasks: activeCount,
-    //
-    //     };
-    // }else if(filter === 'active'){
-    //     let newTasks = oldTask.filter(x => x.checks !== true);
-    //     return {
-    //         ...state,
-    //         filtered: newTasks,
-    //         activeTasks: activeCount,
-    //     };
-    // }else if (filter === 'done'){
-    //     let newTasks = oldTask.filter(x => x.checks === true);
-    //     return{
-    //         ...state,
-    //         filtered: newTasks,
-    //         activeTasks: activeCount,
-    //     };
-    // }
 
-    let oldTask = state.taskArray
+export const rootReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case VALUE:{
-            let val = state.inValue
-            val = action.payload
+            let val = action.payload
             return{
                 ...state,
                 inValue: val
             };
         }
         case TASK: {
+            let oldTask = state.taskArray
+            let activeCount = oldTask.filter(x => x.checks !== true).length+1;
             oldTask.push({
                 taskValue: state.inValue,
                 checks: false,
                 id: uuid()
             });
-            return {
-                ...state,
-                taskArray: oldTask,
-                inValue: ''
-            };
-
+                return {
+                    ...state,
+                    activeTasks: activeCount,
+                    taskArray: oldTask,
+                    inValue: '',
+                };
         }
         case FILTER: {
+            let oldTask = state.taskArray
+            let activeCount = oldTask.filter(x => x.checks !== true).length;
             let newFilter= action.payload
-            console.log(newFilter);
-            return {
+                return{
+                    ...state,
+                    activeTasks: activeCount,
+                    filter: newFilter
+                };
+        }
+        case CLEAR:{
+            let oldTask = state.taskArray
+            let activeCount = oldTask.filter(x => x.checks !== true).length;
+            const newTask = oldTask.filter(x => x.checks !== true);
+            return{
                 ...state,
-                filter: newFilter
-            }
+                activeTasks: activeCount,
+                taskArray: newTask,
+            };
         }
-        default: {
-            return state;
+        case EACH: {
+            let selector = state.allSelector
+            let oldTask = state.taskArray
+            let activeCount = oldTask.filter(x => x.checks !== true).length;
+            oldTask.map(item =>item.checks = !selector)
+            return{
+                ...state,
+                activeTasks: activeCount,
+                allSelector: !selector,
+                taskArray: oldTask
+            };
         }
+        default: return state;
     }
 }
 

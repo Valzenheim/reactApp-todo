@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {changeFilter} from "./reduxActions";
+import {eachSelector, changeFilter, clear} from "./reduxActions";
 
 class Footer extends React.Component {
 
@@ -10,7 +10,7 @@ class Footer extends React.Component {
 
                 <span
                     className="selectAll"
-                    //onClick={this.props.selector}
+                   onClick={()=>{this.props.eachSelect()}}
                 >
                     {this.props.activeTasks} tasks left
                 </span>
@@ -39,7 +39,7 @@ class Footer extends React.Component {
 
                 <button
                     className="removeAll"
-                    //onClick={this.props.doneRemover}
+                   onClick={()=>{this.props.doneRemover()}}
                 >
                     remove completed
                 </button>
@@ -49,12 +49,20 @@ class Footer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    firstName: state.taskArray,
+    inValue: state.inValue,
     filter: state.filter,
-    activeTasks: state.activeTasks
+    filtered: state.filtered,
+    activeTasks:  state.activeTasks,
+    allSelector: state.allSelector
+
+
 });
 
 const mapDispatchToProps = dispatch => ({
-    setFilter: filter => dispatch(changeFilter(filter))
+    setFilter: filter => dispatch(changeFilter(filter)),
+    doneRemover: ()=>dispatch(clear()),
+    eachSelect: ()=>dispatch(eachSelector())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Footer);
