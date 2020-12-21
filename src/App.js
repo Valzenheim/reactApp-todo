@@ -8,9 +8,9 @@ import {addTask, addValue, localOnLoad} from "./reduxActions";
 
 class App extends React.Component {
 
-    // componentDidMount() {
-    //     this.props.loadState();
-    // };
+    componentDidMount() {
+        this.props.loadState();
+    };
 
     taskRender() {
         let filter = this.props.filter;

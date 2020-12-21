@@ -100,15 +100,17 @@ export const rootReducer = (state = initialState, action) => {
             };
         }
         case ONLOAD: {
-            let localFilter = JSON.parse(localStorage.getItem('filter')) ? 'all' : JSON.parse(localStorage.getItem('filter'));
+            let localFilter = JSON.parse(localStorage.getItem('filter'));
             let localArray =JSON.parse(localStorage.getItem('tasks'));
+            if (localArray && localFilter){
             let activeCount = localArray.filter(x => x.checks !== true).length;
             return{
                 ...state,
                 taskArray: localArray,
                 activeTasks: activeCount,
                 filter: localFilter
-            };
+            };}
+            break
         }
         default: return state;
     }
