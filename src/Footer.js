@@ -10,7 +10,7 @@ class Footer extends React.Component {
 
                 <span
                     className="selectAll"
-                   onClick={()=>{this.props.eachSelect()}}
+                    onClick={()=>{this.props.eachSelect()}}
                 >
                     {this.props.activeTasks} tasks left
                 </span>
@@ -39,7 +39,7 @@ class Footer extends React.Component {
 
                 <button
                     className="removeAll"
-                   onClick={()=>{this.props.doneRemover()}}
+                    onClick={()=>{this.props.doneRemover()}}
                 >
                     remove completed
                 </button>
@@ -52,11 +52,8 @@ const mapStateToProps = state => ({
     firstName: state.taskArray,
     inValue: state.inValue,
     filter: state.filter,
-    filtered: state.filtered,
     activeTasks:  state.activeTasks,
     allSelector: state.allSelector
-
-
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,8 @@
 import React from 'react';
 import trash from './trash-alt-solid.svg';
-import check from './check-solid.svg'
+import check from './check-solid.svg';
+import {connect} from "react-redux";
+import {checkHandler, itemRemover} from './reduxActions';
 
 
 class Task extends React.Component {
@@ -17,7 +19,7 @@ class Task extends React.Component {
                         className="checkbox"
                         type="checkbox"
                         checked={this.props.item.checks}
-                        //onChange={this.checkHandler}
+                        onChange={()=>this.props.checkHandle(this.props.item.id)}
                     />
 
                 </label>
@@ -28,7 +30,7 @@ class Task extends React.Component {
 
                 <span
                     className="remSpan"
-                    //onClick={this.taskRemover}
+                    onClick={()=>this.props.taskRemover(this.props.item.id)}
                 >
                     <img className='trashIcon' src={trash} alt={trash}/>
                 </span>
@@ -37,4 +39,17 @@ class Task extends React.Component {
     }
 }
 
-export default Task;
+const mapStateToProps = state => ({
+    firstName: state.taskArray,
+    inValue: state.inValue,
+    filter: state.filter,
+    activeTasks:  state.activeTasks,
+    allSelector: state.allSelector
+});
+
+const mapDispatchToProps = dispatch => ({
+    checkHandle: (index) => dispatch(checkHandler(index)),
+    taskRemover: (index) => dispatch(itemRemover(index))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

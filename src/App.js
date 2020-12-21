@@ -4,86 +4,28 @@ import Task from './Task';
 import Footer from './Footer';
 import './style.css';
 import './reduxActions';
-import {addTask, addValue} from "./reduxActions";
+import {addTask, addValue, localOnLoad} from "./reduxActions";
 
 class App extends React.Component {
-    // checkboxHandler(task) {
-    //     let oldTasks = this.state.tasks;
-    //     oldTasks.map((item) =>
-    //         item.id === task ?
-    //             item.checks = !item.checks :
-    //             null
-    //     );
-    //     this.setState({tasks: oldTasks}, this.filterItems);
-    // }
-    //
-    // propsSelector(){
-    //     let select = !this.state.allSelector
-    //     this.setState({allSelector: select})
-    //     this.selectAll()
-    // }
-    //
-    // selectAll() {
-    //     let oldTasks = this.state.tasks;
-    //     oldTasks.forEach((item) =>
-    //         item.checks = this.state.allSelector
-    //     )
-    //     this.setState({tasks: oldTasks}, this.filterItems);
-    // }
-    //
-    // itemRemover(task) {
-    //     let newTasks = this.state.tasks.filter((t) => t.id !== task);
-    //     this.setState({tasks: newTasks}, this.filterItems);
-    // }
-    //
-    // doneRemover() {
-    //     let oldTask = this.state.tasks;
-    //     const newTask = oldTask.filter(x => x.checks !== true);
-    //     this.setState({tasks: newTask}, this.filterItems);
-    // }
-    //
-    // setFilter(e){
-    //     let filterState = e.currentTarget.dataset.value;
-    //     this.setState({filter: filterState}, this.filterItems)};
-    //
-    // filterItems(){
-    //     let oldTasks = this.state.tasks;
-    //     let filter = this.state.filter;
-    //     let activeCount = oldTasks.filter(x => x.checks !== true).length;
-    //     if(filter === 'all'){
-    //         this.setState({filtered: oldTasks, activeTasks: activeCount});
-    //     }else if(filter === 'active'){
-    //         let newTasks = oldTasks.filter(x => x.checks !== true);
-    //         this.setState({filtered: newTasks, activeTasks: activeCount});
-    //     }else if (filter === 'done'){
-    //         let newTasks = oldTasks.filter(x => x.checks === true);
-    //         this.setState({filtered: newTasks, activeTasks: activeCount});
-    //     }
+
+    // componentDidMount() {
+    //     this.props.loadState();
     // };
 
-    taskRender(){
+    taskRender() {
         let filter = this.props.filter;
-        let tasks=[]
-
-            if(filter==='all'){
-                tasks = this.props.taskArray
-                console.log(filter)
-                return tasks.map((item) =>  <Task item={item} key = {item.id} />)
-            }else if(filter === 'active'){
-                console.log(filter)
-                 tasks = this.props.taskArray.filter(x => x.checks !== true)
-                return tasks.map((item) =>  <Task item={item} key = {item.id} />)
-            }else if(filter === 'done'){
-                console.log(filter)
-                tasks = this.props.taskArray.filter(x => x.checks === true)
-                return tasks.map((item) =>  <Task item={item} key = {item.id} />)
-            }
-
+        let tasks = [];
+        if (filter === 'all') {
+            tasks = this.props.taskArray;
+            return tasks.map((item) => <Task item={item} key={item.id}/>);
+        } else if (filter === 'active') {
+            tasks = this.props.taskArray.filter(x => x.checks !== true);
+            return tasks.map((item) => <Task item={item} key={item.id}/>);
+        } else if (filter === 'done') {
+            tasks = this.props.taskArray.filter(x => x.checks === true);
+            return tasks.map((item) => <Task item={item} key={item.id}/>);
         }
-
-
-
-
+    };
 
     render() {
         return (
@@ -101,35 +43,35 @@ class App extends React.Component {
                             className="formInput"
                             placeholder="Enter your task name here"
                             value={this.props.inValue}
-                            onChange={(event)=>{this.props.addVal(event.target.value)}}
+                            onChange={(event) => {
+                                this.props.addVal(event.target.value)
+                            }}
                         />
                     </form>
                 </div>
                 <div className='section'>
                     {this.taskRender()}
                 </div>
-                    <Footer />
+                <Footer/>
             </div>
         );
     }
 }
 
-export const mapStateToProps = (state) => {
-    return {
-        taskArray: state.taskArray,
-        inValue: state.inValue,
-        filter: state.filter,
-        filtered: state.filtered,
-        activeTasks:  state.activeTasks,
-        allSelector: state.allSelector
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return ({
-        addVal: (text)=> dispatch(addValue(text)),
-        addText: () => dispatch(addTask()),
-    })
-}
+export const mapStateToProps = (state) => ({
+    taskArray: state.taskArray,
+    inValue: state.inValue,
+    filter: state.filter,
+    activeTasks: state.activeTasks,
+    allSelector: state.allSelector
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    addVal: (text) => dispatch(addValue(text)),
+    addText: () => dispatch(addTask()),
+    loadState: () => dispatch(localOnLoad())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
