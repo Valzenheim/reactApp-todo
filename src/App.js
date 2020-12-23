@@ -18,9 +18,9 @@ class App extends React.Component {
         if (filter === 'all') {
             tasks = this.props.taskArray;
         } else if (filter === 'active') {
-            tasks = this.props.taskArray.filter(x => x.checks !== true);
+            tasks = this.props.taskArray.filter(x => !x.checks);
         } else if (filter === 'done') {
-            tasks = this.props.taskArray.filter(x => x.checks === true);
+            tasks = this.props.taskArray.filter(x => x.checks);
         }
         return tasks.map((item) => <Task item={item} key={item.id}/>);
     };
