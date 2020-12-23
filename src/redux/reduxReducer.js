@@ -1,4 +1,4 @@
-import {TASK, VALUE, FILTER, CLEAR, EACH, CHECK, REMOVE, ONLOAD} from './Constance';
+import {TASK, VALUE, FILTER, CLEAR, EACHSELECT, CHECK, REMOVE, ONLOAD} from './Constance';
 import {createStore} from 'redux';
 import uuid from 'react-uuid';
 
@@ -59,7 +59,7 @@ export const rootReducer = (state = initialState, action) => {
                 taskArray: newTask,
             };
         }
-        case EACH: {
+        case EACHSELECT: {
             let selector = state.allSelector;
             let oldTask = state.taskArray;
             oldTask.map(item => item.checks = !selector);

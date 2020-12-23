@@ -1,4 +1,4 @@
-import {TASK, VALUE, FILTER, CLEAR, EACH, CHECK, REMOVE, ONLOAD} from './Constance';
+import {TASK, VALUE, FILTER, CLEAR, EACHSELECT, CHECK, REMOVE, ONLOAD} from './Constance';
 
 export const addTask = () => ({
     type: TASK
@@ -20,7 +20,7 @@ export const clear = () => ({
 });
 
 export const eachSelector = () => ({
-    type: EACH
+    type: EACHSELECT
 });
 
 export const checkHandler = (index) => ({
