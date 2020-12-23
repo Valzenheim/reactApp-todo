@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Task from './Task';
-import Footer from './Footer';
-import './style.css';
-import './reduxActions';
-import {addTask, addValue, localOnLoad} from "./reduxActions";
+import Task from './components/Task';
+import Footer from './components/Footer';
+import './styles/style.css';
+import './redux/reduxActions';
+import {addTask, addValue, localOnLoad} from "./redux/reduxActions";
 
 class App extends React.Component {
 
@@ -17,14 +17,12 @@ class App extends React.Component {
         let tasks = [];
         if (filter === 'all') {
             tasks = this.props.taskArray;
-            return tasks.map((item) => <Task item={item} key={item.id}/>);
         } else if (filter === 'active') {
             tasks = this.props.taskArray.filter(x => x.checks !== true);
-            return tasks.map((item) => <Task item={item} key={item.id}/>);
         } else if (filter === 'done') {
             tasks = this.props.taskArray.filter(x => x.checks === true);
-            return tasks.map((item) => <Task item={item} key={item.id}/>);
         }
+        return tasks.map((item) => <Task item={item} key={item.id}/>);
     };
 
     render() {

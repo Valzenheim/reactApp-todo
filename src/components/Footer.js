@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {eachSelector, changeFilter, clear} from "./reduxActions";
+import {eachSelector, changeFilter, clear} from "../redux/reduxActions";
 
 class Footer extends React.Component {
 

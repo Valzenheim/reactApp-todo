@@ -1,8 +1,8 @@
 import React from 'react';
-import trash from './trash-alt-solid.svg';
-import check from './check-solid.svg';
+import trash from '../images/trash-alt-solid.svg';
+import check from '../images/check-solid.svg';
 import {connect} from "react-redux";
-import {checkHandler, itemRemover} from './reduxActions';
+import {checkHandler, itemRemover} from '../redux/reduxActions';
 
 
 class Task extends React.Component {

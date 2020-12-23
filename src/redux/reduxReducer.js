@@ -4,20 +4,19 @@ import uuid from 'react-uuid';
 
 const initialState = {
     taskArray: [],
-    inValue:'',
+    inValue: '',
     filter: 'all',
     activeTasks: 0,
     allSelector: false
 };
 
 
-
 export const rootReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case VALUE:{
+        case VALUE: {
             let val = action.payload;
-            return{
+            return {
                 ...state,
                 inValue: val
             };
@@ -29,7 +28,7 @@ export const rootReducer = (state = initialState, action) => {
                 checks: false,
                 id: uuid()
             });
-            let activeCount = oldTask.filter(x => x.checks !== true).length
+            let activeCount = oldTask.filter(x => !x.checks).length
             localStorage.setItem('tasks', JSON.stringify(oldTask));
             return {
                 ...state,
@@ -40,21 +39,21 @@ export const rootReducer = (state = initialState, action) => {
         }
         case FILTER: {
             let oldTask = state.taskArray;
-            let activeCount = oldTask.filter(x => x.checks !== true).length;
-            let newFilter= action.payload;
+            let activeCount = oldTask.filter(x => !x.checks).length;
+            let newFilter = action.payload;
             localStorage.setItem('filter', JSON.stringify(newFilter));
-            return{
+            return {
                 ...state,
                 activeTasks: activeCount,
                 filter: newFilter
             };
         }
-        case CLEAR:{
+        case CLEAR: {
             let oldTask = state.taskArray;
-            let activeCount = oldTask.filter(x => x.checks !== true).length;
-            const newTask = oldTask.filter(x => x.checks !== true);
+            let activeCount = oldTask.filter(x => !x.checks).length;
+            const newTask = oldTask.filter(x => !x.checks);
             localStorage.setItem('tasks', JSON.stringify(newTask));
-            return{
+            return {
                 ...state,
                 activeTasks: activeCount,
                 taskArray: newTask,
@@ -63,10 +62,10 @@ export const rootReducer = (state = initialState, action) => {
         case EACH: {
             let selector = state.allSelector;
             let oldTask = state.taskArray;
-            oldTask.map(item =>item.checks = !selector);
-            let activeCount = oldTask.filter(x => x.checks !== true).length;
+            oldTask.map(item => item.checks = !selector);
+            let activeCount = oldTask.filter(x => !x.checks).length;
             localStorage.setItem('tasks', JSON.stringify(oldTask));
-            return{
+            return {
                 ...state,
                 activeTasks: activeCount,
                 allSelector: !selector,
@@ -80,9 +79,9 @@ export const rootReducer = (state = initialState, action) => {
                 item.id === index ?
                     item.checks = !item.checks :
                     null);
-            let activeCount = oldTask.filter(x => x.checks !== true).length;
+            let activeCount = oldTask.filter(x => !x.checks).length;
             localStorage.setItem('tasks', JSON.stringify(oldTask));
-            return{
+            return {
                 ...state,
                 taskArray: oldTask,
                 activeTasks: activeCount
@@ -90,10 +89,10 @@ export const rootReducer = (state = initialState, action) => {
         }
         case REMOVE: {
             let index = action.payload;
-            let oldTask = state.taskArray.filter( item => item.id !== index);
-            let activeCount = oldTask.filter(x => x.checks !== true).length;
+            let oldTask = state.taskArray.filter(item => item.id !== index);
+            let activeCount = oldTask.filter(x => !x.checks).length;
             localStorage.setItem('tasks', JSON.stringify(oldTask));
-            return{
+            return {
                 ...state,
                 taskArray: oldTask,
                 activeTasks: activeCount
@@ -101,18 +100,20 @@ export const rootReducer = (state = initialState, action) => {
         }
         case ONLOAD: {
             let localFilter = JSON.parse(localStorage.getItem('filter'));
-            let localArray =JSON.parse(localStorage.getItem('tasks'));
-            if (localArray && localFilter){
-            let activeCount = localArray.filter(x => x.checks !== true).length;
-            return{
-                ...state,
-                taskArray: localArray,
-                activeTasks: activeCount,
-                filter: localFilter
-            };}
+            let localArray = JSON.parse(localStorage.getItem('tasks'));
+            if (localArray && localFilter) {
+                let activeCount = localArray.filter(x => !x.checks).length;
+                return {
+                    ...state,
+                    taskArray: localArray,
+                    activeTasks: activeCount,
+                    filter: localFilter
+                };
+            }
             break
         }
-        default: return state;
+        default:
+            return state;
     }
 }
 
